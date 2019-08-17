@@ -13,7 +13,6 @@ import Alamofire
 
 let apiKey = "aff7482acfc580a62cbe62ee6e73a7a4"
 let baseURL = "https://api.themoviedb.org"
-
 let imageBaseUrl = "https://image.tmdb.org/t/p/w500"
 
 
