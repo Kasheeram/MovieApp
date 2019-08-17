@@ -130,7 +130,7 @@ class MovieDetailsController: UIViewController {
         let label = UILabel()
         label.font = UIFont.sfDisplayRegular(ofSize: 20)
         label.textColor = Colors.titleRGB
-        label.text = "Run Time"
+        label.text = "N/A"
         label.numberOfLines = 0
         return label
     }()
@@ -194,26 +194,33 @@ class MovieDetailsController: UIViewController {
     var movieDetails:MovieDetails? {
         didSet {
             if let movieDetails = movieDetails {
-                let imageUrl = imageBaseUrl + movieDetails.posterPath
-                posterImage.sd_setImage(with: URL(string: imageUrl), completed: nil)
+                if let posterPath = movieDetails.posterPath {
+                    let imageUrl = imageBaseUrl + posterPath
+                    posterImage.sd_setImage(with: URL(string: imageUrl), completed: nil)
+                }
+                
                 titleLable.text = movieDetails.originalTitle
                 releaseDateLable.text = movieDetails.releaseDate
-                runTimeLable.text = "\(Double(movieDetails.runtime / 60))"
-                let genres = movieDetails.genres
-                var gens = ""
-                for gen in genres {
-                    if gens == "" {
-                        gens = gen.name
-                    } else {
-                       gens += ", \(gen.name)"
-                    }
+                if let runtime = movieDetails.runtime {
+                    runTimeLable.text = "\(Double(runtime / 60))"
                 }
-                genreLable.text = gens
-                languageLable.text = movieDetails.originalLanguage
-                ratingScoreLable.text = "\(movieDetails.voteAverage)"
-                numberOfVotesLable.text = "\(movieDetails.voteCount)"
-                synopsisLabel.text = movieDetails.overview
                 
+                if let genres = movieDetails.genres {
+                    var gens = ""
+                    for gen in genres {
+                        if gens == "" {
+                            gens = gen.name ?? ""
+                        } else {
+                            gens += ", \(gen.name ?? "")"
+                        }
+                    }
+                    genreLable.text = gens
+                }
+                languageLable.text = movieDetails.originalLanguage
+                ratingScoreLable.text = "\(movieDetails.voteAverage ?? 0)"
+                numberOfVotesLable.text = "\(movieDetails.voteCount ?? 0)"
+                synopsisLabel.text = movieDetails.overview
+
             }
         }
     }
