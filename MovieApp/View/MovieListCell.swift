@@ -70,9 +70,11 @@ class MovieListCell: UICollectionViewCell {
         didSet {
             if let movie = movie{
                 titleLable.text = movie.title
-                let img = imageBaseUrl + movie.posterPath
-                posterImage.sd_setImage(with: URL(string: img), completed: nil)
-                let votePercet = Int(movie.voteAverage/10 * 100)
+                if let posterPath = movie.posterPath {
+                    let img = imageBaseUrl + posterPath
+                    posterImage.sd_setImage(with: URL(string: img), completed: nil)
+                }
+                let votePercet = Int(movie.voteAverage!/10 * 100)
                 ratingScoreLable.text = "\(votePercet)%"
             }
         }

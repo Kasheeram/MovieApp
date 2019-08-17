@@ -19,9 +19,6 @@ let imageBaseUrl = "https://image.tmdb.org/t/p/w500"
 struct Service {
     static let shared = Service()
     func fetchGenericData<T: Decodable>(urlString: String, completion: @escaping (T) -> ()) {
-
-//        let hedr = "Bearer \(Token.accessToken)"
-//        let header = ["Authorization":hedr]
         AF.request(urlString, method: .get, parameters: nil, encoding: JSONEncoding.default,headers: nil).validate().responseJSON {
             response in
             switch response.result{
@@ -29,23 +26,19 @@ struct Service {
                 do {
                     guard let data = response.data else { return }
                     let decoder = JSONDecoder()
-//                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
                     let homeFeed = try decoder.decode(T.self, from: data)
                     DispatchQueue.main.async {
                         completion(homeFeed)
                     }
-                }catch {
-
+                }catch let error{
+                    print(error)
                 }
                 break
             case .failure(let error):
                 print("Failed to serialize json:", error)
             }
         }
-
-
-
-
-
     }
+    
 }

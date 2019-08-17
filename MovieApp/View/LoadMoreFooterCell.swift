@@ -9,5 +9,13 @@
 import UIKit
 
 class LoadMoreFooterCell: CollectionBaseCell {
+    override func setupViews() {
+        super.setupViews()
+        setupUI()
+    }
     
+    private func setupUI() {
+        self.backgroundColor = .white
+        
+    }
 }

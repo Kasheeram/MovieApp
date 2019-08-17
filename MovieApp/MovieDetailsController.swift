@@ -224,12 +224,12 @@ class MovieDetailsController: UIViewController {
 
         view.backgroundColor = .white
         setupViews()
-        getMovieDetails()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
+        getMovieDetails()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -10,111 +10,94 @@ import UIKit
 
 class MovieListController: UIViewController {
 
-    var movieListCellId = "movieListCellId"
+    let nowPlayingMoviesCellId = "nowPlayingMoviesCellId"
+    let popularMoviesCellId = "popularMoviesCellId"
     
-    lazy var movieListCollection: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
-        layout.minimumLineSpacing = 15.0
-        layout.minimumInteritemSpacing = 0.0
-        let collection = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        collection.delegate = self
-        collection.dataSource = self
-        collection.backgroundColor = .white
-        return collection
+    lazy var segmenControll: UISegmentedControl = {
+        let segment = UISegmentedControl(items: ["     Now Playing     ", "Popular"])
+        segment.selectedSegmentIndex = 0
+        segment.addTarget(self, action: #selector(handleSegmentAction), for: .valueChanged)
+        return segment
     }()
     
-    var movieList: Moviews?
-    var page = 1
+    
+    lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        layout.scrollDirection = .horizontal
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.dataSource = self
+        cv.delegate = self
+        cv.backgroundColor = .white
+        return cv
+    }()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.title = "Movies"
-        movieListCollection.register(MovieListCell.self, forCellWithReuseIdentifier: movieListCellId)
+        view.backgroundColor = .white
+        self.edgesForExtendedLayout = .all
+        self.navigationItem.titleView = segmenControll
+        collectionView.register(NowPlayingMoviesCell.self, forCellWithReuseIdentifier: nowPlayingMoviesCellId)
+        collectionView.register(PopularMoviesCell.self, forCellWithReuseIdentifier: popularMoviesCellId)
         setupViews()
-        
-        let urlString = baseURL + "/4/list/1?page=\(page)&api_key=\(apiKey)"
-        Service.shared.fetchGenericData(urlString: urlString) { (list: Moviews) in
-            self.movieList = list
-            self.movieListCollection.reloadData()
-        }
-        
         
     }
     
     private func setupViews() {
-        view.addSubview(movieListCollection)
-        movieListCollection.fillSuperview()
+        view.addSubview(collectionView)
+        collectionView.fillSuperview()
+        
+    }
+    
+    @objc private func handleSegmentAction(sender: UISegmentedControl) {
+        let index = sender.selectedSegmentIndex
+        scrollToMenuIndex(index: index)
+        
     }
     
 }
 
 
-
 extension MovieListController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-    // MARK: UICollectionViewDataSource
-    
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return movieList?.results.count ?? 0
+        return 2
         
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: movieListCellId, for: indexPath) as! MovieListCell
-        let movie = movieList?.results[indexPath.row]
-        cell.movie = movie
-        return cell
+        if indexPath.row == 0 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: nowPlayingMoviesCellId, for: indexPath) as! NowPlayingMoviesCell
+            cell.backgroundColor = .purple
+            cell.mainController = self
+            return cell
+        }else{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: popularMoviesCellId, for: indexPath) as! PopularMoviesCell
+            cell.backgroundColor = .red
+            cell.mainController = self
+            return cell
+        }
         
     }
     
+    func  collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+    }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        //        if indexPath.item == complaintArray.count {
-        //            if complaintArray.count == self.totalEntries {
-        //                self.activityView.stopAnimating()
-        //                return CGSize(width: collectionView.frame.width, height: 0)
-        //            }
-        //            return CGSize(width: collectionView.frame.width, height: 60)
-        //        }
-        //
-        //        let data = complaintArray[indexPath.row]
-        
-        
-        return CGSize(width: collectionView.frame.width, height: 330)
-        
+    @objc func scrollToMenuIndex(index: Int) {
+        let indexPath = IndexPath(item: index, section: 0)
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        //        if complaintArray.count > 0{
-        //            if (indexPath.row == complaintArray.count) {
-        //                if complaintArray.count < self.totalEntries {
-        //                    getMoreData()
-        //                } else {
-        //                    self.activityView.stopAnimating()
-        //                }
-        //            }
-        //        }
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let index = Int(targetContentOffset.pointee.x / view.frame.width)
+        segmenControll.selectedSegmentIndex = index
+
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-                moveToViewComplaintScreen(index: indexPath.row)
-    }
-    
-    func moveToViewComplaintScreen(index:Int) {
-        let movieDetailController = MovieDetailsController()
-        let movie = movieList?.results[index]
-        movieDetailController.movieId = movie?.id
-        self.navigationController?.pushViewController(movieDetailController, animated: true)
-    }
     
     
 }
