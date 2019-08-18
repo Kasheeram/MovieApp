@@ -38,7 +38,7 @@ class MovieListCell: UICollectionViewCell {
     
     lazy var titleLable: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 16)
         label.numberOfLines = 0
         return label
     }()
@@ -58,7 +58,7 @@ class MovieListCell: UICollectionViewCell {
     
     lazy var ratingScoreLable: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 16)
         label.numberOfLines = 0
         return label
     }()

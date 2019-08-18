@@ -26,6 +26,7 @@ class MovieListController: UIViewController {
         layout.minimumLineSpacing = 0
         layout.scrollDirection = .horizontal
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.translatesAutoresizingMaskIntoConstraints = false
         cv.dataSource = self
         cv.delegate = self
         cv.backgroundColor = .white
@@ -46,7 +47,17 @@ class MovieListController: UIViewController {
     
     private func setupViews() {
         view.addSubview(collectionView)
-        collectionView.fillSuperview()
+        collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        if #available(iOS 11.0, *) {
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        } else {
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        }
+//        collectionView.fillSuperview()
         
     }
     

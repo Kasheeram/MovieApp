@@ -39,7 +39,7 @@ class MovieDetailsController: UIViewController {
 
     lazy var titleLable: UILabel = {
         let label = UILabel()
-        label.font = UIFont.sfDisplaySemibold(ofSize: 24)
+        label.font = UIFont.sfDisplaySemibold(ofSize: 16)
         label.text = "Mission Mungal"
         label.textColor = Colors.headerRGB
         label.numberOfLines = 0
@@ -54,7 +54,7 @@ class MovieDetailsController: UIViewController {
     
     lazy var ratingScoreLable: UILabel = {
         let label = UILabel()
-        label.font = UIFont.sfDisplayRegular(ofSize: 20)
+        label.font = UIFont.sfDisplayRegular(ofSize: 16)
         label.textColor = Colors.titleRGB
         label.text = "86%"
         label.numberOfLines = 0
@@ -71,7 +71,7 @@ class MovieDetailsController: UIViewController {
     
     lazy var releaseDateTxtLable: UILabel = {
         let label = UILabel()
-        label.font = UIFont.sfDisplayRegular(ofSize: 20)
+        label.font = UIFont.sfDisplayRegular(ofSize: 14)
         label.textColor = Colors.headerRGB
         label.text = "Release Date"
         return label
@@ -79,7 +79,7 @@ class MovieDetailsController: UIViewController {
     
     lazy var runTimeTxtLable: UILabel = {
         let label = UILabel()
-        label.font = UIFont.sfDisplayRegular(ofSize: 20)
+        label.font = UIFont.sfDisplayRegular(ofSize: 14)
         label.textColor = Colors.headerRGB
         label.text = "Run Time"
         return label
@@ -87,7 +87,7 @@ class MovieDetailsController: UIViewController {
     
     lazy var languageTxtLable: UILabel = {
         let label = UILabel()
-        label.font = UIFont.sfDisplayRegular(ofSize: 20)
+        label.font = UIFont.sfDisplayRegular(ofSize: 14)
         label.textColor = Colors.headerRGB
         label.text = "Language"
         return label
@@ -95,7 +95,7 @@ class MovieDetailsController: UIViewController {
     
     lazy var genreTxtLable: UILabel = {
         let label = UILabel()
-        label.font = UIFont.sfDisplayRegular(ofSize: 20)
+        label.font = UIFont.sfDisplayRegular(ofSize: 14)
         label.textColor = Colors.headerRGB
         label.text = "Genre"
         return label
@@ -103,7 +103,7 @@ class MovieDetailsController: UIViewController {
     
     lazy var numberOfVotesTxtLable: UILabel = {
         let label = UILabel()
-        label.font = UIFont.sfDisplayRegular(ofSize: 20)
+        label.font = UIFont.sfDisplayRegular(ofSize: 14)
         label.textColor = Colors.headerRGB
         label.text = "Total Votes"
         return label
@@ -111,7 +111,7 @@ class MovieDetailsController: UIViewController {
     
     lazy var actorsTxtLable: UILabel = {
         let label = UILabel()
-        label.font = UIFont.sfDisplayRegular(ofSize: 20)
+        label.font = UIFont.sfDisplayRegular(ofSize: 14)
         label.textColor = Colors.headerRGB
         label.text = "Actor/actress"
         return label
@@ -119,7 +119,7 @@ class MovieDetailsController: UIViewController {
     
     lazy var releaseDateLable: UILabel = {
         let label = UILabel()
-        label.font = UIFont.sfDisplayRegular(ofSize: 20)
+        label.font = UIFont.sfDisplayRegular(ofSize: 14)
         label.textColor = Colors.titleRGB
         label.text = "Release Date"
         label.numberOfLines = 0
@@ -128,7 +128,7 @@ class MovieDetailsController: UIViewController {
     
     lazy var runTimeLable: UILabel = {
         let label = UILabel()
-        label.font = UIFont.sfDisplayRegular(ofSize: 20)
+        label.font = UIFont.sfDisplayRegular(ofSize: 14)
         label.textColor = Colors.titleRGB
         label.text = "N/A"
         label.numberOfLines = 0
@@ -137,7 +137,7 @@ class MovieDetailsController: UIViewController {
     
     lazy var languageLable: UILabel = {
         let label = UILabel()
-        label.font = UIFont.sfDisplayRegular(ofSize: 20)
+        label.font = UIFont.sfDisplayRegular(ofSize: 14)
         label.textColor = Colors.titleRGB
         label.text = "Language"
         label.numberOfLines = 0
@@ -146,7 +146,7 @@ class MovieDetailsController: UIViewController {
     
     lazy var genreLable: UILabel = {
         let label = UILabel()
-        label.font = UIFont.sfDisplayRegular(ofSize: 20)
+        label.font = UIFont.sfDisplayRegular(ofSize: 14)
         label.textColor = Colors.titleRGB
         label.text = "Genre"
         label.numberOfLines = 0
@@ -155,7 +155,7 @@ class MovieDetailsController: UIViewController {
     
     lazy var numberOfVotesLable: UILabel = {
         let label = UILabel()
-        label.font = UIFont.sfDisplayRegular(ofSize: 20)
+        label.font = UIFont.sfDisplayRegular(ofSize: 14)
         label.textColor = Colors.titleRGB
         label.text = "Total Votes"
         label.numberOfLines = 0
@@ -164,7 +164,7 @@ class MovieDetailsController: UIViewController {
     
     lazy var actorsLable: UILabel = {
         let label = UILabel()
-        label.font = UIFont.sfDisplayRegular(ofSize: 20)
+        label.font = UIFont.sfDisplayRegular(ofSize: 14)
         label.textColor = Colors.titleRGB
         label.text = "Actor/actress khjfds dskjhf fdskfj fsdkf fdskfjk fdskj fdskfj dskfj fsdkfjf lkjdsf fsdkj fdklj fdklj fdslkj fdlkfj fsdlj fdl fdslfk fdlfjk fdskj fdslsjdf sdkjf"
         label.numberOfLines = 0
@@ -173,7 +173,7 @@ class MovieDetailsController: UIViewController {
     
     lazy var synopsisTxtLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.sfDisplayRegular(ofSize: 20)
+        label.font = UIFont.sfDisplayRegular(ofSize: 14)
         label.textColor = Colors.headerRGB
         label.text = "Synopsis"
         label.numberOfLines = 0
@@ -182,7 +182,7 @@ class MovieDetailsController: UIViewController {
     
     lazy var synopsisLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.sfDisplayRegular(ofSize: 16)
+        label.font = UIFont.sfDisplayRegular(ofSize: 14)
         label.textColor = Colors.titleRGB
         label.text = "Synopsis kdjs fdslkfj fdslkf fsdlfkj fdsl fdgm,n fgdfmg dfkg ertr rtlyk bfgjl vcblkj bcvbkj bvlbjk bcvlbjkbcvlgfdj gtrpoyi tryo gflkfj ghgfl bfglkj fdlfkj dfglj fdglkdj fgdlkj Actor/actress khjfds dskjhf fdskfj fsdkf fdskfjk fdskj fdskfj dskfj fsdkfjf lkjdsf fsdkj fdklj fdklj fdslkj fdlkfj fsdlj fdl fdslfk fdlfjk fdskj fdslsjdf sdkjf"
         label.numberOfLines = 0
@@ -191,35 +191,22 @@ class MovieDetailsController: UIViewController {
 
     
     var movieId:Int?
-    var movieDetails:MovieDetails? {
+    var movieDetailsViewModel:MoviewDetailViewModel? {
         didSet {
-            if let movieDetails = movieDetails {
-                if let posterPath = movieDetails.posterPath {
+            if let movieDetailsViewModel = movieDetailsViewModel {
+                if let posterPath = movieDetailsViewModel.posterPath {
                     let imageUrl = imageBaseUrl + posterPath
                     posterImage.sd_setImage(with: URL(string: imageUrl), completed: nil)
                 }
                 
-                titleLable.text = movieDetails.originalTitle
-                releaseDateLable.text = movieDetails.releaseDate
-                if let runtime = movieDetails.runtime {
-                    runTimeLable.text = "\(Double(runtime / 60))"
-                }
-                
-                if let genres = movieDetails.genres {
-                    var gens = ""
-                    for gen in genres {
-                        if gens == "" {
-                            gens = gen.name ?? ""
-                        } else {
-                            gens += ", \(gen.name ?? "")"
-                        }
-                    }
-                    genreLable.text = gens
-                }
-                languageLable.text = movieDetails.originalLanguage
-                ratingScoreLable.text = "\(movieDetails.voteAverage ?? 0)"
-                numberOfVotesLable.text = "\(movieDetails.voteCount ?? 0)"
-                synopsisLabel.text = movieDetails.overview
+                titleLable.text = movieDetailsViewModel.originalTitle
+                releaseDateLable.text = movieDetailsViewModel.releaseDate
+                runTimeLable.text = movieDetailsViewModel.runtime
+                genreLable.text = movieDetailsViewModel.genres
+                languageLable.text = movieDetailsViewModel.originalLanguage
+                ratingScoreLable.text = movieDetailsViewModel.voteAverage
+                numberOfVotesLable.text = movieDetailsViewModel.voteCount
+                synopsisLabel.text = movieDetailsViewModel.overview
 
             }
         }
@@ -248,7 +235,7 @@ class MovieDetailsController: UIViewController {
         guard let movieId = movieId else { return }
         let urlString = baseURL + "/3/movie/\(movieId)?api_key=\(apiKey)"
         Service.shared.fetchGenericData(urlString: urlString) { (details: MovieDetails) in
-            self.movieDetails = details
+            self.movieDetailsViewModel = MoviewDetailViewModel(movieDetails: details)
         }
     }
 
@@ -272,25 +259,21 @@ class MovieDetailsController: UIViewController {
         
         titleLable.anchor(top: posterImage.bottomAnchor, leading: posterImage.leadingAnchor, bottom: nil, trailing: votingAvgImage.leadingAnchor, padding: .init(top: 0, left: 8, bottom: 0, right: 8), size: .init(width: 0, height: 60))
         
-        lineView.anchor(top: titleLable.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 16, left: 8, bottom: 0, right: 8),size: .init(width: 0, height: 1))
+        lineView.anchor(top: titleLable.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 8, left: 8, bottom: 0, right: 8),size: .init(width: 0, height: 1))
         
         let leftStack = UIStackView(arrangedSubviews: [releaseDateTxtLable, runTimeTxtLable, languageTxtLable])
         leftStack.axis = .vertical
-//        leftStack.spacing = 16
         leftStack.distribution = .equalSpacing
         contentView.addSubview(leftStack)
         
         leftStack.anchor(top: lineView.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 16, left: 16, bottom: 0, right: 0), size: .init(width: 130, height: 100))
-//        leftStack.heightAnchor.constraint(greaterThanOrEqualToConstant: 100).isActive = true
         
         let rightStack = UIStackView(arrangedSubviews: [releaseDateLable, runTimeLable, languageLable])
         rightStack.axis = .vertical
-//        rightStack.spacing = 16
         rightStack.distribution = .equalSpacing
         contentView.addSubview(rightStack)
         
-        rightStack.anchor(top: leftStack.topAnchor, leading: leftStack.trailingAnchor, bottom: leftStack.bottomAnchor, trailing: contentView.trailingAnchor, padding: .init(top: 0, left: 16, bottom: 0, right: 0))
-//        rightStack.heightAnchor.constraint(greaterThanOrEqualToConstant: 100).isActive = true
+        rightStack.anchor(top: leftStack.topAnchor, leading: leftStack.trailingAnchor, bottom: leftStack.bottomAnchor, trailing: contentView.trailingAnchor, padding: .init(top: 0, left: 16, bottom: 0, right: 16))
         
         genreTxtLable.anchor(top: leftStack.bottomAnchor, leading: leftStack.leadingAnchor, bottom: nil, trailing: leftStack.trailingAnchor, padding: .init(top: 12, left: 0, bottom: 0, right: 0),size: .init(width: 0, height: 30))
         genreLable.anchor(top: genreTxtLable.topAnchor, leading: rightStack.leadingAnchor, bottom: nil, trailing: rightStack.trailingAnchor)

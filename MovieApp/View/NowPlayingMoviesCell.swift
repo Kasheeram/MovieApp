@@ -16,6 +16,7 @@ class NowPlayingMoviesCell: CollectionBaseCell {
     
     lazy var movieListCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
         layout.minimumLineSpacing = 15.0
         layout.minimumInteritemSpacing = 0.0
@@ -115,7 +116,7 @@ extension NowPlayingMoviesCell: UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if moviesViewModel.count > 0{
+        if moviesViewModel.count > 0 {
             if (indexPath.row == moviesViewModel.count) {
                 if moviesViewModel.count < self.totalEntries {
                     getMoreData()
