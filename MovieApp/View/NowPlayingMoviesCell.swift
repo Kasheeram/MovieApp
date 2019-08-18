@@ -28,8 +28,8 @@ class NowPlayingMoviesCell: CollectionBaseCell {
     }()
     
     let activityView = UIActivityIndicatorView(style: .gray)
-    var movieList: Moviews?
-    var results = [Result]()
+    
+    var moviesViewModel = [MoviesViewModel]()
     var page = 1
     var totalEntries = 0
     
@@ -51,8 +51,8 @@ class NowPlayingMoviesCell: CollectionBaseCell {
     func getMoviesList() {
         let urlString = baseURL + "/3/movie/now_playing?api_key=\(apiKey)&page=\(page)"
         Service.shared.fetchGenericData(urlString: urlString) { (list: Moviews) in
-            if let result = list.results, let totalResult =  list.totalResults{
-                self.results += result
+            if let results = list.results, let totalResult =  list.totalResults{
+                self.moviesViewModel += results.map({ return MoviesViewModel(results: $0)})
                 self.totalEntries = totalResult
             }
             self.movieListCollection.reloadData()
@@ -79,15 +79,12 @@ extension NowPlayingMoviesCell: UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        if let result = results {
-        return results.count + 1
-//        }
-        return 1
+        return moviesViewModel.count + 1
         
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.item == results.count {
+        if indexPath.item == moviesViewModel.count {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: loadMoreFooterCellId, for: indexPath) as! LoadMoreFooterCell
             self.activityView.center = CGPoint(x: cell.contentView.frame.size.width / 2, y: cell.contentView.frame.size.height / 2)
             self.activityView.startAnimating()
@@ -96,8 +93,8 @@ extension NowPlayingMoviesCell: UICollectionViewDataSource, UICollectionViewDele
         }
         self.activityView.stopAnimating()
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: movieListCellId, for: indexPath) as! MovieListCell
-        let result = results[indexPath.row]
-        cell.movie = result
+        let movieViewModel = moviesViewModel[indexPath.row]
+        cell.movieViewModel = movieViewModel
         return cell
         
     }
@@ -105,8 +102,8 @@ extension NowPlayingMoviesCell: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if indexPath.item == results.count {
-            if results.count == self.totalEntries {
+        if indexPath.item == moviesViewModel.count {
+            if moviesViewModel.count == self.totalEntries {
                 self.activityView.stopAnimating()
                 return CGSize(width: collectionView.frame.width, height: 0)
             }
@@ -118,9 +115,9 @@ extension NowPlayingMoviesCell: UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if results.count > 0{
-            if (indexPath.row == results.count) {
-                if results.count < self.totalEntries {
+        if moviesViewModel.count > 0{
+            if (indexPath.row == moviesViewModel.count) {
+                if moviesViewModel.count < self.totalEntries {
                     getMoreData()
                 } else {
                     self.activityView.stopAnimating()
@@ -135,7 +132,7 @@ extension NowPlayingMoviesCell: UICollectionViewDataSource, UICollectionViewDele
     
     func moveToViewComplaintScreen(index:Int) {
         let movieDetailController = MovieDetailsController()
-        let movie = results[index]
+        let movie = moviesViewModel[index]
         movieDetailController.movieId = movie.id
         mainController?.navigationController?.pushViewController(movieDetailController, animated: true)
     }

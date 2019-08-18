@@ -39,7 +39,6 @@ class MovieListCell: UICollectionViewCell {
     lazy var titleLable: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.text = "Mission Mungal"
         label.numberOfLines = 0
         return label
     }()
@@ -60,23 +59,19 @@ class MovieListCell: UICollectionViewCell {
     lazy var ratingScoreLable: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.text = "86%"
         label.numberOfLines = 0
         return label
     }()
     
     
-    var movie: Result? {
+    var movieViewModel: MoviesViewModel! {
         didSet {
-            if let movie = movie{
-                titleLable.text = movie.title
-                if let posterPath = movie.posterPath {
-                    let img = imageBaseUrl + posterPath
-                    posterImage.sd_setImage(with: URL(string: img), completed: nil)
-                }
-                let votePercet = Int(movie.voteAverage!/10 * 100)
-                ratingScoreLable.text = "\(votePercet)%"
+            titleLable.text = movieViewModel.title
+            if let posterPath = movieViewModel.posterPath {
+                let img = imageBaseUrl + posterPath
+                posterImage.sd_setImage(with: URL(string: img), completed: nil)
             }
+            ratingScoreLable.text = movieViewModel.voteAverage
         }
     }
     

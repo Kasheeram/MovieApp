@@ -13,8 +13,8 @@ class PopularMoviesCell: NowPlayingMoviesCell {
     override func getMoviesList() {
         let urlString = baseURL + "/3/movie/popular?api_key=\(apiKey)&page=\(page)"
         Service.shared.fetchGenericData(urlString: urlString) { (list: Moviews) in
-            if let result = list.results, let totalResult =  list.totalResults {
-                self.results += result
+            if let results = list.results, let totalResult =  list.totalResults{
+                self.moviesViewModel += results.map({ return MoviesViewModel(results: $0)})
                 self.totalEntries = totalResult
             }
             self.movieListCollection.reloadData()
