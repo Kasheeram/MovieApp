@@ -26,13 +26,20 @@ struct MoviewDetailViewModel {
         self.originalTitle = movieDetails.originalTitle
         self.releaseDate = movieDetails.releaseDate
         if let runtime = movieDetails.runtime {
-            self.runtime = "\(Double(runtime / 60))"
+            let runningTime = secondsToHoursMinutesSeconds(seconds: runtime)
+            self.runtime = "\(runningTime.0):\(runningTime.1):\(runningTime.2) hrs"
         } else {
            self.runtime = "N/A"
         }
         self.genres = genre(genres: movieDetails.genres ?? [])
         self.originalLanguage = movieDetails.originalLanguage
-        self.voteAverage = "\(movieDetails.voteAverage ?? 0)"
+        if let voteAVG = movieDetails.voteAverage {
+            let votePercentage = Int((voteAVG / 10) * 100)
+            self.voteAverage = "\(votePercentage)%"
+        } else {
+            voteAverage = "0.0"
+        }
+//        self.voteAverage = "\(movieDetails.voteAverage ?? 0)"
         self.voteCount = "\(movieDetails.voteCount ?? 0)"
         self.overview = movieDetails.overview
     }
@@ -51,4 +58,9 @@ func genre(genres: [Genre]) -> String {
     }
 
     return gens
+}
+
+
+func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int) {
+    return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
 }

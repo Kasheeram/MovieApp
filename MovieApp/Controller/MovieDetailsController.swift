@@ -2,14 +2,14 @@
 //  MovieDetailsController.swift
 //  MovieApp
 //
-//  Created by Kashee ram on 8/17/19.
+//  Created by Kashee ram on 8/18/19.
 //  Copyright © 2019 Kashee ram. All rights reserved.
 //
 
 import UIKit
 
 class MovieDetailsController: UIViewController {
-
+    
     let scrollView:UIScrollView = {
         let scroll = UIScrollView()
         scroll.backgroundColor = .white
@@ -30,17 +30,9 @@ class MovieDetailsController: UIViewController {
         return image
     }()
     
-    let backButton:UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "backArrow"), for: .normal)
-        button.addTarget(self, action: #selector(MovieDetailsController.closeThisView), for: .touchUpInside)
-        return button
-    }()
-
     lazy var titleLable: UILabel = {
         let label = UILabel()
         label.font = UIFont.sfDisplaySemibold(ofSize: 16)
-        label.text = "Mission Mungal"
         label.textColor = Colors.headerRGB
         label.numberOfLines = 0
         return label
@@ -48,7 +40,6 @@ class MovieDetailsController: UIViewController {
     
     lazy var votingAvgImage: UIImageView = {
         let image = UIImageView(image: #imageLiteral(resourceName: "like"))
-        //        image.contentMode = .scaleToFit
         return image
     }()
     
@@ -56,7 +47,6 @@ class MovieDetailsController: UIViewController {
         let label = UILabel()
         label.font = UIFont.sfDisplayRegular(ofSize: 16)
         label.textColor = Colors.titleRGB
-        label.text = "86%"
         label.numberOfLines = 0
         return label
     }()
@@ -121,7 +111,6 @@ class MovieDetailsController: UIViewController {
         let label = UILabel()
         label.font = UIFont.sfDisplayRegular(ofSize: 14)
         label.textColor = Colors.titleRGB
-        label.text = "Release Date"
         label.numberOfLines = 0
         return label
     }()
@@ -139,7 +128,6 @@ class MovieDetailsController: UIViewController {
         let label = UILabel()
         label.font = UIFont.sfDisplayRegular(ofSize: 14)
         label.textColor = Colors.titleRGB
-        label.text = "Language"
         label.numberOfLines = 0
         return label
     }()
@@ -148,7 +136,6 @@ class MovieDetailsController: UIViewController {
         let label = UILabel()
         label.font = UIFont.sfDisplayRegular(ofSize: 14)
         label.textColor = Colors.titleRGB
-        label.text = "Genre"
         label.numberOfLines = 0
         return label
     }()
@@ -157,7 +144,6 @@ class MovieDetailsController: UIViewController {
         let label = UILabel()
         label.font = UIFont.sfDisplayRegular(ofSize: 14)
         label.textColor = Colors.titleRGB
-        label.text = "Total Votes"
         label.numberOfLines = 0
         return label
     }()
@@ -166,7 +152,6 @@ class MovieDetailsController: UIViewController {
         let label = UILabel()
         label.font = UIFont.sfDisplayRegular(ofSize: 14)
         label.textColor = Colors.titleRGB
-        label.text = "Actor/actress khjfds dskjhf fdskfj fsdkf fdskfjk fdskj fdskfj dskfj fsdkfjf lkjdsf fsdkj fdklj fdklj fdslkj fdlkfj fsdlj fdl fdslfk fdlfjk fdskj fdslsjdf sdkjf"
         label.numberOfLines = 0
         return label
     }()
@@ -184,11 +169,10 @@ class MovieDetailsController: UIViewController {
         let label = UILabel()
         label.font = UIFont.sfDisplayRegular(ofSize: 14)
         label.textColor = Colors.titleRGB
-        label.text = "Synopsis kdjs fdslkfj fdslkf fsdlfkj fdsl fdgm,n fgdfmg dfkg ertr rtlyk bfgjl vcblkj bcvbkj bvlbjk bcvlbjkbcvlgfdj gtrpoyi tryo gflkfj ghgfl bfglkj fdlfkj dfglj fdglkdj fgdlkj Actor/actress khjfds dskjhf fdskfj fsdkf fdskfjk fdskj fdskfj dskfj fsdkfjf lkjdsf fsdkj fdklj fdklj fdslkj fdlkfj fsdlj fdl fdslfk fdlfjk fdskj fdslsjdf sdkjf"
         label.numberOfLines = 0
         return label
     }()
-
+    
     
     var movieId:Int?
     var movieDetailsViewModel:MoviewDetailViewModel? {
@@ -207,7 +191,15 @@ class MovieDetailsController: UIViewController {
                 ratingScoreLable.text = movieDetailsViewModel.voteAverage
                 numberOfVotesLable.text = movieDetailsViewModel.voteCount
                 synopsisLabel.text = movieDetailsViewModel.overview
-
+                
+            }
+        }
+    }
+    
+    var creditViewModel: CreditViewModel? {
+        didSet {
+            if let creditViewModel = creditViewModel {
+                actorsLable.text = creditViewModel.numberOfCasts
             }
         }
     }
@@ -215,20 +207,24 @@ class MovieDetailsController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = .white
         setupViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: true)
         getMovieDetails()
+        getCredits()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: true)
+    
+    private func getCredits() {
+        guard let movieId = movieId else { return }
+        let urlString = baseURL + "/3/movie/\(movieId)/credits?api_key=\(apiKey)"
+        Service.shared.fetchGenericData(urlString: urlString) { (details: Credits) in
+            self.creditViewModel = CreditViewModel(credits: details)
+        }
     }
     
     private func getMovieDetails() {
@@ -238,21 +234,18 @@ class MovieDetailsController: UIViewController {
             self.movieDetailsViewModel = MoviewDetailViewModel(movieDetails: details)
         }
     }
-
+    
     private func setupViews() {
         
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        [posterImage, backButton, titleLable, votingAvgImage, ratingScoreLable, lineView, genreTxtLable, genreLable, numberOfVotesTxtLable, numberOfVotesLable, actorsTxtLable, actorsLable, synopsisTxtLabel,synopsisLabel].forEach{(contentView.addSubview($0))}
+        [posterImage, titleLable, votingAvgImage, ratingScoreLable, lineView, genreTxtLable, genreLable, numberOfVotesTxtLable, numberOfVotesLable, actorsTxtLable, actorsLable, synopsisTxtLabel,synopsisLabel].forEach{(contentView.addSubview($0))}
         
         scrollView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: nil, size: .init(width: view.frame.width, height: 0))
         
         contentView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor, size: .init(width: view.frame.width, height: 0))
-
         
         posterImage.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, size: .init(width: 0, height: 250))
-        backButton.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 24, left: 16, bottom: 0, right: 0), size: .init(width: 60, height: 44))
-        backButton.bringSubviewToFront(posterImage)
         
         votingAvgImage.anchor(top: posterImage.bottomAnchor, leading: nil, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 8, left: 0, bottom: 0, right: 16), size: .init(width: 30, height: 30))
         ratingScoreLable.anchor(top: votingAvgImage.bottomAnchor, leading: votingAvgImage.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, size: .init(width: 0, height: 30))
@@ -292,8 +285,4 @@ class MovieDetailsController: UIViewController {
         synopsisLabel.anchor(top: synopsisTxtLabel.bottomAnchor, leading: synopsisTxtLabel.leadingAnchor, bottom: contentView.bottomAnchor, trailing: synopsisTxtLabel.trailingAnchor)
     }
     
-    @objc private func closeThisView() {
-        navigationController?.popViewController(animated: true)
-    }
-
 }

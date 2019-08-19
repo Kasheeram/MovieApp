@@ -2,11 +2,19 @@
 //  NowPlayingCell.swift
 //  MovieApp
 //
-//  Created by Kashee ram on 8/17/19.
+//  Created by Kashee ram on 8/18/19.
 //  Copyright © 2019 Kashee ram. All rights reserved.
 //
 
 import UIKit
+
+extension UIActivityIndicatorView {
+    func makeLargeGray() {
+        style = .whiteLarge
+        color = .gray
+    }
+}
+
 
 class NowPlayingMoviesCell: CollectionBaseCell {
     
@@ -21,14 +29,15 @@ class NowPlayingMoviesCell: CollectionBaseCell {
         layout.minimumLineSpacing = 15.0
         layout.minimumInteritemSpacing = 0.0
         let collection = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        collection.contentInset = UIEdgeInsets(top: 44, left: 0, bottom: 0, right: 0)
+//        collection.contentInset = UIEdgeInsets(top: 44, left: 0, bottom: 0, right: 0)
+        collection.translatesAutoresizingMaskIntoConstraints = false
         collection.delegate = self
         collection.dataSource = self
         collection.backgroundColor = .white
         return collection
     }()
     
-    let activityView = UIActivityIndicatorView(style: .gray)
+    let activityView = UIActivityIndicatorView()
     
     var moviesViewModel = [MoviesViewModel]()
     var page = 1
@@ -37,8 +46,10 @@ class NowPlayingMoviesCell: CollectionBaseCell {
     
     override func setupViews() {
         super.setupViews()
+        activityView.makeLargeGray()
         setupUI()
         getMoviesList()
+        
         
     }
     
@@ -108,7 +119,7 @@ extension NowPlayingMoviesCell: UICollectionViewDataSource, UICollectionViewDele
                 self.activityView.stopAnimating()
                 return CGSize(width: collectionView.frame.width, height: 0)
             }
-            return CGSize(width: collectionView.frame.width, height: 200)
+            return CGSize(width: collectionView.frame.width, height: 50)
         }
         return CGSize(width: collectionView.frame.width, height: 330)
         

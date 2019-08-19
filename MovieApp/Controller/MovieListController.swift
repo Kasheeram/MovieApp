@@ -2,7 +2,7 @@
 //  MovieListController.swift
 //  MovieApp
 //
-//  Created by Kashee ram on 8/17/19.
+//  Created by Kashee ram on 8/18/19.
 //  Copyright © 2019 Kashee ram. All rights reserved.
 //
 
@@ -47,17 +47,18 @@ class MovieListController: UIViewController {
     
     private func setupViews() {
         view.addSubview(collectionView)
-        collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        
         if #available(iOS 11.0, *) {
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         } else {
             collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         }
-//        collectionView.fillSuperview()
         
     }
     
@@ -108,7 +109,6 @@ extension MovieListController: UICollectionViewDataSource, UICollectionViewDeleg
         segmenControll.selectedSegmentIndex = index
 
     }
-    
     
     
 }

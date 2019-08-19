@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  MovieApp
 //
-//  Created by Kashee ram on 8/16/19.
+//  Created by Kashee ram on 8/18/19.
 //  Copyright © 2019 Kashee ram. All rights reserved.
 //
 
@@ -49,6 +49,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
+    }
+    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        let restrictRotation:UIInterfaceOrientationMask = .portrait
+        return restrictRotation
     }
 
     // MARK: - Core Data stack
